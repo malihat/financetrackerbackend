@@ -61,6 +61,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/user', async (req, res) => {
+    try {
+        const records = await FinanceRecordModel.find();
+        return res.status(200).json(records);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({message: error.message})
+    }
+})
+
 
 
 // Route to update
@@ -89,6 +99,7 @@ router.put('/:newId', async (req, res) => {
 router.delete('/:newId', async (req, res) => {
     try {
         const {newId} = req.params;
+        console.log(newId);
         const deletedItem = await FinanceRecordModel.findByIdAndDelete(newId);
         if (!deletedItem) {
             return res.status(404).json({ message: 'Record not found' });
