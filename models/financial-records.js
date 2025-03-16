@@ -17,8 +17,3 @@ const financeSchema = new mongoose.Schema({
 export const FinanceRecordModel = mongoose.model('finance', financeSchema);
 
 
-// const FinanceRecordModel = mongoose.model('FinanceRecordModel', financeSchema);
-
-// export default FinanceRecordModel;
-
-// module.exports = mongoose.model('FinanceRecordModel', financeSchema);  

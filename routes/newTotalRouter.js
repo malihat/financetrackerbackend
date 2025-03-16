@@ -27,14 +27,6 @@ router.post('/total', async (req, res) => {
             await newTotal.save();
             return res.status(201).json({total: newTotal.total})
         }
-        // Check if total is present
-        // if (!total) {
-        //     return res.status(400).send({ error: 'Total data is required' });
-        // }
-
-        // Save the data to the database
-        // const savedTotal = await newTotalModel.create({total});
-        // return res.status(201).send(savedTotal);
 
     } catch (error) {
         console.error('Error:', error);
@@ -46,15 +38,4 @@ router.post('/total', async (req, res) => {
 export default router;
 
 
-// router.post('/total', async (req, res) => {
-//     try {
-//         const {total} = req.body;
-//         console.log('This is Total: ', total);
-//         const savedTotal = await newTotalModel.create(total);
-//         return res.status(201).send(savedTotal);
-        
-//     } catch (error) {
-//         console.log(error);
 
-//     }
-// })

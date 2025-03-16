@@ -4,7 +4,6 @@ import multer from 'multer';
 
 const router = express.Router();
 
-// const upload = multer({dest: 'uploads/'})
 const storage = multer.diskStorage({
     destination: function (req, file, cb) { 
         cb(null, 'uploads/');
@@ -13,24 +12,27 @@ const storage = multer.diskStorage({
         const uniqueSuffix = Date.now() 
         cb(null, file.originalname);
     }
-})
+});
 
-const upload = multer({storage: storage});
+const fileFilter = (req, file, cb) => {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'];
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+        return cb(new Error('Only image files (JPG, PNG, JPEG, WEBP, GIF) are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({storage, fileFilter});
 
 
 // Route for Saving a record
 router.post('/', upload.single("receipt"), async (req, res) => {
     try {
         const {date, description, amount, category, paymentMethod, receipt} = req.body;
-        // const image = req.file.filename;
-        // console.log(req.file)
 
         if (!date || !description || !amount || !category || !paymentMethod) {
             return res.status(400).json({ message: 'Please provide all required fields' });
         }
-
-        // Get the file path for the uploaded image
-        // const imageUrl = req.file ? `/uploads/${req.file.filename}` : null; eq.file ? `/uploads/${req.file.filename}` : null
 
         const newItem = {
             date,
