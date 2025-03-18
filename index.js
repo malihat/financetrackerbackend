@@ -17,13 +17,20 @@ app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 7000
 
-app.use(cors()); // Allows requests from different origins
+// app.use(cors()); // Allows requests from different origins
+app.use(
+    cors({
+      origin: "https://financetrackerfrontend-gwpn.onrender.com",
+      methods: "GET,POST,PUT,DELETE",
+      credentials: true,
+    })
+  );
 app.use(express.json()); // Middleware to parse JSON requests
 
 // Define a basic route
 
-app.use('/', financialRecordRouter);
-app.use('/api', newTotalRouter);
+app.use('/', cors(), financialRecordRouter);
+app.use('/api', cors(), newTotalRouter);
 
 // Connect to Mongodb
 mongoose.connect(process.env.MONGO_URI, {
