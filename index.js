@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 7000
 // app.use(cors()); // Allows requests from different origins
 app.use(
     cors({
-      origin: "https://financetrackerfrontend-gwpn.onrender.com",
+      origin: "https://financetrackerbackend-ogvgl15h6-malihats-projects.vercel.app/",
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })
