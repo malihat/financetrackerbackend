@@ -14,15 +14,22 @@ const storage = multer.diskStorage({
     }
 });
 
-const fileFilter = (req, file, cb) => {
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'];
-    if (!allowedMimeTypes.includes(file.mimetype)) {
-        return cb(new Error('Only image files (JPG, PNG, JPEG, WEBP, GIF) are allowed!'), false);
-    }
-    cb(null, true);
-};
+// const fileFilter = (req, file, cb) => {
+//     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'];
+//     if (!allowedMimeTypes.includes(file.mimetype)) {
+//         return cb(new Error('Only image files (JPG, PNG, JPEG, WEBP, GIF) are allowed!'), false);
+//     }
+//     cb(null, true);
+// };
 
-const upload = multer({storage, fileFilter});
+
+// Create multer instance with file size limit (10MB)
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+});
+
+// const upload = multer({storage});
 
 
 // Route for Saving a record
